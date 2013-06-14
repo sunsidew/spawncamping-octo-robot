@@ -45,6 +45,8 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'thin'
+
 gem 'therubyracer', platforms: 'ruby'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'

@@ -1,4 +1,13 @@
 Arbos::Application.routes.draw do
+
+  resources :boards
+  root 'boards#index'
+
+  get '/login' => "session#new"
+  get '/logout' => "session#destroy"
+  get '/auth/:provider/callback' => "session#create"
+  get '/auth/failure' => "session#failure"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

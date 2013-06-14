@@ -1,21 +1,24 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @board.name %>
-</p>
+<div class="row-fluid">
+	<h3 style="margin-top: 0px;">
+		<i class="icon-group"></i> <%= @board.name %>
+		<%= link_to edit_board_path(@board), class: 'btn' do %> <i class="icon-edit"></i> <% end %>
+	</h3>
+</div>
+<div class="row-fluid">
 
-<p>
-  <strong>Description:</strong>
-  <%= @board.description %>
-</p>
+	<div class="span10" style="background-color: #2C3E50; height: 600px">
+		<script>
+			STICKIES.open();
+		</script>
+	</div>
 
-<% @board.links.each do |link| %>
-	<li><%= link.user.name %></li>
-<% end %>
+	<div class="span2">
+		<p><strong>Members</strong></p>
+		<% @board.links.each do |link| %>
+			<%= image_tag link.user.picture, class: 'img-rounded', width: '40px' %>
+		<% end %>
+	</div>
 
-<br />
+</div>
 
-<%= link_to '삭제', @board, method: :delete, data: {confirm: 'are you sure?'} %>
-<%= link_to 'Edit', edit_board_path(@board) %> |
-<%= link_to 'Back', boards_path %>

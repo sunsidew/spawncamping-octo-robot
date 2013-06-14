@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def login_check
-  	redirect_to login_path, notice: '로그인 먼저 하세요' unless current_user
+  	redirect_to login_path, flash: { warning: '로그인 먼저 하세요' } unless current_user
   end
 
   def current_user

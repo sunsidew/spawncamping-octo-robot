@@ -6,7 +6,7 @@ class SessionController < ApplicationController
   	auth = env["omniauth.auth"]
   	user = User.from_omniauth(auth)
   	session[:user_id] = user.id
-  	redirect_to root_path, notice: "로그인 성공!!"
+  	redirect_to root_path, flash: { success: "로그인 성공!!" }
   end
 
   def failure
@@ -15,6 +15,6 @@ class SessionController < ApplicationController
 
   def destroy
   	session[:user_id] = nil
-  	redirect_to root_path, notice: "로그아웃 성공!!"
+    redirect_to login_path, flash: { success: '로그아웃 성공!!' }
   end
 end

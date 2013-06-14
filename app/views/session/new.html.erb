@@ -1,5 +1,27 @@
 
-<p><%= link_to '페이스북으로 로그인', '/auth/facebook' %></p>
-<p><%= link_to '트위터로 로그인', '/auth/twitter' %></p>
-<p><%= link_to '구글+로 로그인', '/auth/google_oauth2' %></p>
+<h1 class="text-center" style="margin-top: 180px;"><em class="text-error">Arbos Project</em></h1>
 
+<div class="form-signin">
+
+	<%= render 'layouts/notices' %>
+	<legend>로그인</legend>
+
+	<p>
+		<%= link_to '/auth/facebook', class: 'btn btn-info' do %>
+			<i class="icon-facebook icon-2x"></i>acebook으로 로그인
+		<% end %>
+	</p>
+
+	<p>
+		<%= link_to '/auth/twitter', class: 'btn btn-primary' do %>
+			<i class="icon-twitter icon-2x"></i> twitter로 로그인 
+		<% end %>
+	</p>
+
+	<p>
+		<%= link_to '/auth/google_oauth2', class: 'btn btn-danger' do %>
+			<i class="icon-google-plus icon-2x"></i> google+로 로그인
+		<% end %>
+	</p>
+
+</div>

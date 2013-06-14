@@ -1,13 +1,13 @@
 <% if flash[:warning] %>
 	<div class="alert">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<p class="text-warning"><%= flash[:warning] %></p>
+		<div class="text-warning"><%= flash[:warning] %></div>
 	</div>
 <% end %>
 
 <% if flash[:success] %>
 	<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<p class="text-success"><%= flash[:success] %></p>
+		<div class="text-success"><%= flash[:success] %></div>
 	</div>
 <% end %>

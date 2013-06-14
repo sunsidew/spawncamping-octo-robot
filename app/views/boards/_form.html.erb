@@ -1,25 +1,31 @@
-<%= form_for(@board) do |f| %>
-  <% if @board.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@board.errors.count, "error") %> prohibited this board from being saved:</h2>
 
-      <ul>
-      <% @board.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<div class="form-horizontal">
+  <%= form_for(@board) do |f| %>
+    <% if @board.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@board.errors.count, "error") %> prohibited this board from being saved:</h2>
+
+        <ul>
+        <% @board.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="control-group">
+      <%= f.label '보드 이름', class: 'control-label' %>
+      <div class="controls"><%= f.text_field :name, class: 'input-medium' %></div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+    <div class="control-group">
+      <%= f.label '보드 설명', class: 'control-label' %>
+      <div class="controls"><%= f.text_area :description, rows: 4, class: 'input-medium' %></div>
+    </div>  
+
+    <div class="control-group">
+      <div class="controls"><%= f.submit '보드 생성', class: 'btn btn-primary' %></div>
+    </div>
+
+  <% end %>
+</div>

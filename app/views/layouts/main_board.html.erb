@@ -9,9 +9,8 @@
 <body>
 
 	<%= render 'layouts/header' %>
-<div class="container">
-	<%= render 'layouts/notices' %>
-	<%= yield %>
-</div>
+
+<%= link_to '삭제', @board, method: :delete, data: {confirm: 'are you sure?'} %>
+
 </body>
 </html>

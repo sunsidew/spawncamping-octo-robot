@@ -3,7 +3,11 @@
 <legend><h4><%= @current_user.name %></h4></legend>
 
 	<ul class="nav nav-pills nav-stacked" style="margin: 0px;">
-	  <li <% if request.fullpath == boards_path %> class="active" <% end %>><%= link_to 'Board', boards_path %></li>
+
+	  <li <% if request.fullpath == boards_path or request.fullpath == root_path %> class="active" <% end %>>
+	  	<%= link_to 'Board', boards_path %>
+	  </li>
+	  
 	  <li><%= link_to 'Post', '#' %></li>
 	  <li><%= link_to 'Profile', '#' %></li>
 	  <li><%= link_to 'Notifications', '#' %></li>

@@ -9,8 +9,7 @@
 <body style="background-color: #ECF0F1;">
 
 	<%= render 'layouts/header' %>
-
-<%= link_to '삭제', @board, method: :delete, data: {confirm: 'are you sure?'} %>
+	<%= yield %>
 
 </body>
 </html>

@@ -10,5 +10,12 @@
   <%= @board.description %>
 </p>
 
+<% @board.links.each do |link| %>
+	<li><%= link.user.name %></li>
+<% end %>
+
+<br />
+
+<%= link_to '삭제', @board, method: :delete, data: {confirm: 'are you sure?'} %>
 <%= link_to 'Edit', edit_board_path(@board) %> |
 <%= link_to 'Back', boards_path %>

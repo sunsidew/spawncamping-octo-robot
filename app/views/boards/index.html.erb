@@ -2,7 +2,7 @@
 <h3><i class="icon-group"></i> My Boards...</h3>
 
 <ul class="nav nav-tabs nav-stacked">
-	<% @boards.each do |board| %>
-		<li><%= link_to board do %><i class="icon-chevron-right"></i> <%= board.name %> <% end %></li>
+	<% @links.each do |link| %>
+		<li><%= link_to link.board do %><i class="icon-chevron-right"></i> <%= link.board.name %> <% end %></li>
 	<% end %>
 </ul>

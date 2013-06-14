@@ -5,7 +5,7 @@ class BoardsController < ApplicationController
   # GET /boards
   # GET /boards.json
   def index
-    @boards = Board.all
+    @links = Link.where(user_id: current_user.id)
   end
 
   # GET /boards/1
@@ -27,6 +27,7 @@ class BoardsController < ApplicationController
   # POST /boards.json
   def create
     @board = Board.new(board_params)
+    @board.add_member(current_user, 10)
 
     respond_to do |format|
       if @board.save
@@ -67,6 +68,7 @@ class BoardsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_board
       @board = Board.find(params[:id])
+      redirect_to root_path, flash: { warning: '권한이 없습니다' } unless @board.has_member? (current_user)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

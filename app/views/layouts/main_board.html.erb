@@ -33,12 +33,14 @@
         initStickies = null;
       },
       openStickies = function openStickies() {
+        console.log('open');
         initStickies && initStickies();
         <% @board.posts.each do |post| %>
           createSticky({ id: "<%= post.id %>", top: "<%= post.top.to_s+"px" %>", left: "<%= post.left.to_s+"px" %>", text: "<%= post.story %>" });
         <% end %>
       },
       createSticky = function createSticky(data) {
+        console.log('create');
         data = data || { id : +new Date(), top : "40px", left : "40px", text : "Note Here" }
         
         return $("<div />", { 
@@ -77,11 +79,13 @@
         .appendTo(document.body);
       },
       deleteSticky = function deleteSticky(id) {
+        console.log('delete');
         $.post("<%= post_destroy_board_path(@board) %>", { 'post_id': id }, function(data) {
           $("#" + id).fadeOut(200, function () { $(this).remove(); });
         });
       },
       saveSticky = function saveSticky() {
+        console.log('save');
         var that = $(this);
         var sticky = (that.hasClass("sticky-status") || that.hasClass("sticky-content")) ? that.parents('div.sticky'): that;
 
@@ -93,9 +97,11 @@
 
         $.post("<%= post_create_board_path(@board) %>", { 'post': obj }, function(data) {
           sticky.find(".sticky-status").text("saved");
+          sticky.attr("id", data);
         });
       },
       markUnsaved = function markUnsaved() {
+        console.log('unsaved');
         var that = $(this);
         sticky = that.hasClass("sticky-content") ? that.parents("div.sticky") : that;
         sticky.find(".sticky-status").text("unsaved");

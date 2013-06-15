@@ -12,6 +12,10 @@ class PostController < ApplicationController
     	@post = current_user.write_post(post_params, @board)
     	@post.save
     end
+
+    respond_to do |format|
+      format.json { render json: @post.id }
+    end 
   end
 
   def destroy

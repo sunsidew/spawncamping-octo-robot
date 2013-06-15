@@ -1,10 +1,11 @@
+
 var STICKIES = (function () {
 	var initStickies = function initStickies() {
-		$("<div />", { 
+		$('#board').append($("<div />", { 
 			text : "+", 
 			"class" : "add-sticky",
 			click : function () { createSticky(); }
-		}).prependTo(document.body);
+		}));
 		initStickies = null;
 	},
 	openStickies = function openStickies() {

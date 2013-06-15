@@ -1,6 +1,13 @@
 Arbos::Application.routes.draw do
 
-  resources :boards
+
+  resources :boards do
+    member do
+      post "post/create"
+      put "post/update"
+      delete "post/destroy"
+    end
+  end
   root 'boards#index'
 
   get '/login' => "session#new"

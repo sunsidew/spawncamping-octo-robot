@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 	has_many :posts
 
 	def write_post(post_params, board)
-		params[:board_id] = board.id
+		params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text], board_id: board.id}
 		posts.build(params)
 	end
 

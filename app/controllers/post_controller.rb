@@ -1,22 +1,22 @@
 class PostController < ApplicationController
+  skip_before_action :verify_authenticity_token 
 	before_action :login_check
 	before_action :set_board
 
   def create
-  	@post = current_user.write_post(post_params, @board)
-  	if @post.save
-  		render nothing: true
-  	else
-  		render nothing: true
-  	end
-  end
-
-  def update
-  
+    @post = Post.where(id: post_params[:id]).first
+    if @post
+      params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text] }
+      @post.update_attributes(params)
+    else
+    	@post = current_user.write_post(post_params, @board)
+    	@post.save
+    end
   end
 
   def destroy
-
+    @post = Post.find(params[:post_id])
+    @post.destroy
   end
 
   private
@@ -26,6 +26,6 @@ class PostController < ApplicationController
   end
 
   def post_params
-  	params.require(:post).permit(:top, :left, :story)
+  	params.require(:post).permit(:id, :top, :left, :text)
   end
 end

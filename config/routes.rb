@@ -4,8 +4,7 @@ Arbos::Application.routes.draw do
   resources :boards do
     member do
       post "post/create"
-      put "post/update"
-      delete "post/destroy"
+      post "post/destroy"
     end
   end
   root 'boards#index'

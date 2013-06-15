@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
+
 </head>
 	
 
@@ -18,4 +19,96 @@
 	</div>
 
 </body>
+  <script type="text/javascript">
+    var STICKIES = (function () {
+      console.log('main');
+
+      var initStickies = function initStickies() {
+        console.log('init');
+        $('#board').append($("<div />", { 
+          text : "+", 
+          "class" : "add-sticky",
+          click : function () { createSticky(); }
+        }));
+        initStickies = null;
+      },
+      openStickies = function openStickies() {
+        initStickies && initStickies();
+        <% @board.posts.each do |post| %>
+          createSticky({ id: "<%= post.id %>", top: "<%= post.top.to_s+"px" %>", left: "<%= post.left.to_s+"px" %>", text: "<%= post.story %>" });
+        <% end %>
+      },
+      createSticky = function createSticky(data) {
+        data = data || { id : +new Date(), top : "40px", left : "40px", text : "Note Here" }
+        
+        return $("<div />", { 
+          "class" : "sticky",
+          'id' : data.id
+           })
+          .prepend($("<div />", { "class" : "sticky-header"} )
+            .append($("<span />", { 
+              "class" : "sticky-status", 
+              click : saveSticky 
+            }))
+            .append($("<span />", { 
+              "class" : "close-sticky", 
+              text : "trash", 
+              click : function () { deleteSticky($(this).parents(".sticky").attr("id")); }
+            }))
+          )
+          .append($("<div />", { 
+            html : data.text, 
+            contentEditable : true, 
+            "class" : "sticky-content", 
+            keypress : markUnsaved
+          }))
+        .draggable({ 
+          handle : "div.sticky-header", 
+          stack : ".sticky",
+          start : markUnsaved,
+          stop  : saveSticky  
+         })
+        .css({
+          position: "absolute",
+          "top" : data.top,
+          "left": data.left
+        })
+        .focusout(saveSticky)
+        .appendTo(document.body);
+      },
+      deleteSticky = function deleteSticky(id) {
+        $.post("<%= post_destroy_board_path(@board) %>", { 'post_id': id }, function(data) {
+          $("#" + id).fadeOut(200, function () { $(this).remove(); });
+        });
+      },
+      saveSticky = function saveSticky() {
+        var that = $(this);
+        var sticky = (that.hasClass("sticky-status") || that.hasClass("sticky-content")) ? that.parents('div.sticky'): that;
+
+        var obj = {
+          id  : sticky.attr("id"),
+          top : sticky.css("top"),
+          left: sticky.css("left"),
+          text: sticky.children(".sticky-content").html() };  
+
+        $.post("<%= post_create_board_path(@board) %>", { 'post': obj }, function(data) {
+          sticky.find(".sticky-status").text("saved");
+        });
+      },
+      markUnsaved = function markUnsaved() {
+        var that = $(this);
+        sticky = that.hasClass("sticky-content") ? that.parents("div.sticky") : that;
+        sticky.find(".sticky-status").text("unsaved");
+      }
+      return {
+        open   : openStickies,
+        init   : initStickies,
+        "new"  : createSticky,
+        remove : deleteSticky 
+      };
+    }());
+  
+    STICKIES.open();
+  </script>
+
 </html>

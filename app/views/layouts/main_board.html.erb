@@ -44,7 +44,7 @@
         data = data || { id : +new Date(), top : "40px", left : "40px", text : "Note Here" }
         
         return $("<div />", { 
-          "class" : "sticky",
+          "class" : "yellow_sticky",
           'id' : data.id
            })
           .prepend($("<div />", { "class" : "sticky-header"} )
@@ -55,7 +55,7 @@
             .append($("<span />", { 
               "class" : "close-sticky", 
               text : "trash", 
-              click : function () { deleteSticky($(this).parents(".sticky").attr("id")); }
+              click : function () { deleteSticky($(this).parents(".yellow_sticky").attr("id")); }
             }))
           )
           .append($("<div />", { 

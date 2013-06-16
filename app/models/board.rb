@@ -12,5 +12,9 @@ class Board < ActiveRecord::Base
 		end
 	end
 
-
+	def has_post? (post)
+		posts.any? do |_post|
+			_post.id == post.id 
+		end
+	end
 end

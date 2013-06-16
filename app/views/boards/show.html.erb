@@ -4,6 +4,7 @@
 		<i class="icon-group"></i> <%= @board.name %>
 		<a href="#board_edit" role="button" class="btn" data-toggle="modal"><i class="icon-edit"></i></a>
 	</h3>
+	<%= render 'layouts/notices' %>
 </div>
 <div class="row-fluid">
 
@@ -11,10 +12,26 @@
 	</div>
 
 	<div class="span2">
-		<p><strong>Members</strong></p>
-		<% @board.links.each do |link| %>
-			<%= image_tag link.user.picture, class: 'img-rounded', width: '40px' %>
-		<% end %>
+		<div class="row-fluid">
+			<input id="user_search" class="typeahead span12" type="text" data-provide="typeahead" placeholder="멤버 초대하기"></input>
+			<script type="text/javascript" charset="utf-8">
+	      $('input#user_search').typeahead({
+	        source: function(query, process) {
+	        	console.log(query);
+	          $.post("<%= user_search_board_path(@board) %>", { 'query': query }, function(data) {
+	            process(data);
+          	});
+	        }
+	      });
+      </script>
+		</div>
+
+		<div class="row-fluid">
+			<p><strong>Members</strong></p>
+			<% @board.links.each do |link| %>
+				<%= image_tag link.user.picture, class: 'img-rounded', width: '40px' %>
+			<% end %>
+		</div>
 	</div>
 
 </div>

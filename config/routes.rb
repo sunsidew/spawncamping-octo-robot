@@ -5,6 +5,7 @@ Arbos::Application.routes.draw do
     member do
       post "post/create"
       post "post/destroy"
+      post "user/search"
     end
   end
   root 'boards#index'

@@ -6,6 +6,10 @@ class PostController < ApplicationController
   def create
     @post = Post.where(id: post_params[:id]).first
     if @post
+      unless @board.has_post? (@post)
+        render nothing: true
+        return
+      end
       params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text] }
       @post.update_attributes(params)
     else
@@ -20,10 +24,15 @@ class PostController < ApplicationController
 
   def destroy
     @post = Post.find(params[:post_id])
+    unless @board.has_post? (@post)
+      render nothing: true
+      return
+    end
     @post.destroy
   end
 
   private
+
   def set_board
   	@board = Board.find(params[:id])
   	redirect_to root_path, flash: { warning: '권한이 없습니다' } unless @board.has_member? (current_user)

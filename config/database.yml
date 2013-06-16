@@ -13,7 +13,7 @@ development:
   encoding: utf8
   database: arbos_development
   pool: 5
-  username: arbox
+  username: arbos
   password: nhnnexts1!
   host: localhost
   port: 3306
@@ -26,7 +26,7 @@ test:
   encoding: utf8
   database: arbos_test
   pool: 5
-  username: arbox
+  username: arbos
   password: nhnnexts1!
   host: localhost
   port: 3306

@@ -3,5 +3,5 @@ class Post < ActiveRecord::Base
 	
 	belongs_to :user
 	belongs_to :board
-	has_many :notifications
+	has_many :notifications, dependent: :destroy
 end

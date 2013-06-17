@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-	has_many :links
-	has_many :posts
-	has_many :notifications
+	has_many :links, dependent: :destroy
+	has_many :posts, dependent: :destroy
+	has_many :notifications, dependent: :destroy
 
 	def notify(post)
 		notifications.build(post_id: post.id, flag: 1).save		

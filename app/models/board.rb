@@ -1,6 +1,6 @@
 class Board < ActiveRecord::Base
-	has_many :links
-	has_many :posts
+	has_many :links, dependent: :destroy
+	has_many :posts, dependent: :destroy
 
 	def add_member (user, privilege)
 		links.build(user_id: user.id, privilege: privilege).save

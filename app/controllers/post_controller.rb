@@ -10,10 +10,11 @@ class PostController < ApplicationController
         render nothing: true
         return
       end
-      params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text] }
+      params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text], type: post_params[:type] }
       @post.update_attributes(params)
     else
     	@post = current_user.write_post(post_params, @board)
+      puts @post.inspect
     	@post.save
     end
 
@@ -39,6 +40,6 @@ class PostController < ApplicationController
   end
 
   def post_params
-  	params.require(:post).permit(:id, :top, :left, :text)
+  	params.require(:post).permit(:id, :top, :left, :text, :type)
   end
 end

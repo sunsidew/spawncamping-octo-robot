@@ -29,12 +29,12 @@
         $('#board').append($("<div />", { 
           text : "Y", 
           "class" : "add-sticky",
-          click : function () { createSticky(); }
+          click : function () { createSticky({ id: +new Date(), top: "40px", left: "40px", text: "yellow", type: "sticky" }); }
         }));
         $('#board').append($("<div />", { 
           text : "B", 
           "class" : "add-sticky",
-          click : function () { createSticky(); }
+          click : function () { createSticky({ id: +new Date(), top: "40px", left: "40px", text: "blue", type: "blue_sticky"}); }
         }));
         initStickies = null;
       },
@@ -43,15 +43,14 @@
         initStickies && initStickies();
 
         <% @board.posts.each do |post| %>
-          createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story.html_safe %>', css: '#b2ebf4'})
+          createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story.html_safe %>', type: '<%= post.type %>'})
         <% end %>
       },
       createSticky = function createSticky(data) {
         console.log(data);
-        data = data || { id : +new Date(), top : "40px", left : "40px", text : "<h1>test</h1>"};
+        
         return $("<div />", { 
-          "class" : "sticky",
-
+          "class" : data.type,
           'id' : data.id
            })
           .prepend($("<div />", { "class" : "sticky-header"} )
@@ -62,7 +61,7 @@
             .append($("<span />", { 
               "class" : "close-sticky", 
               text : "trash", 
-              click : function () { deleteSticky($(this).parents(".sticky").attr("id")); }
+              click : function () { deleteSticky($(this).parents("."+data.type).attr("id")); }
             }))
           )
           .append($("<div />", { 
@@ -87,11 +86,12 @@
       },
       deleteSticky = function deleteSticky(id) {
         console.log('delete');
-
-        $.post("<%= post_destroy_board_path(@board) %>", { 'post_id': id }, function(data) {
-          $("#" + id).fadeOut(200, function () { $(this).remove(); });
-        });
-
+        if (confirm("정말 삭제 할라고?"))
+        {
+          $.post("<%= post_destroy_board_path(@board) %>", { 'post_id': id }, function(data) {
+            $("#" + id).fadeOut(200, function () { $(this).remove(); });
+          });
+        }
       },
       saveSticky = function saveSticky() {
         console.log('save');
@@ -102,7 +102,8 @@
           id  : sticky.attr("id"),
           top : sticky.css("top"),
           left: sticky.css("left"),
-          text: sticky.children(".sticky-content").html() };  
+          text: sticky.children(".sticky-content").html(),
+          type: sticky.attr("class").split(' ')[0] };  
         
         $.post("<%= post_create_board_path(@board) %>", { 'post': obj }, function(data) {
           sticky.find(".sticky-status").text("저장완료");

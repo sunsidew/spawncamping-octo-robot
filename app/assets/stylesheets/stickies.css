@@ -19,7 +19,7 @@
 .add-sticky:hover {
 	background: #474747;
 }
-.sticky {
+.yellow_sticky {
 	width:300px;
 	background:#fdfdbe;
 	box-shadow:3px 3px 10px rgba(0,0,0,0.45);

@@ -46,6 +46,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'thin'
+gem 'capistrano'
 
 gem 'therubyracer', platforms: 'ruby'
 gem 'less-rails'

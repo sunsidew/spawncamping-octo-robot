@@ -27,7 +27,12 @@
       var initStickies = function initStickies() {
         console.log('init');
         $('#board').append($("<div />", { 
-          text : "+", 
+          text : "Y", 
+          "class" : "add-sticky",
+          click : function () { createSticky(); }
+        }));
+        $('#board').append($("<div />", { 
+          text : "B", 
           "class" : "add-sticky",
           click : function () { createSticky(); }
         }));
@@ -38,15 +43,15 @@
         initStickies && initStickies();
 
         <% @board.posts.each do |post| %>
-          createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story %>'})
+          createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story.html_safe %>', css: '#b2ebf4'})
         <% end %>
       },
       createSticky = function createSticky(data) {
         console.log(data);
-        data = data || { id : +new Date(), top : "40px", left : "40px", text : "Note Here" };
-        
+        data = data || { id : +new Date(), top : "40px", left : "40px", text : "<h1>test</h1>"};
         return $("<div />", { 
-          "class" : "yellow_sticky",
+          "class" : "sticky",
+
           'id' : data.id
            })
           .prepend($("<div />", { "class" : "sticky-header"} )
@@ -57,7 +62,7 @@
             .append($("<span />", { 
               "class" : "close-sticky", 
               text : "trash", 
-              click : function () { deleteSticky($(this).parents(".yellow_sticky").attr("id")); }
+              click : function () { deleteSticky($(this).parents(".sticky").attr("id")); }
             }))
           )
           .append($("<div />", { 
@@ -100,7 +105,7 @@
           text: sticky.children(".sticky-content").html() };  
         
         $.post("<%= post_create_board_path(@board) %>", { 'post': obj }, function(data) {
-          sticky.find(".sticky-status").text("saved");
+          sticky.find(".sticky-status").text("저장완료");
           sticky.attr("id", data);
         });
 
@@ -109,7 +114,7 @@
         console.log('unsaved');
         var that = $(this);
         sticky = that.hasClass("sticky-content") ? that.parents("div.sticky") : that;
-        sticky.find(".sticky-status").text("unsaved");
+        sticky.find(".sticky-status").text("수정 중");
       }
       return {
         open   : openStickies,

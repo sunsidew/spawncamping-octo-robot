@@ -9,7 +9,11 @@ set :scm, :git # You can set :scm explicitly or Capistrano will make an intellig
 # role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
 # role :db,  "your slave db-server here"
 
-server "localhost", :web, :app, :db, primary: true
+server "125.209.199.64", :web, :app, :db, primary: true
+
+set :user, "root"
+set :use_sudo, false
+
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"

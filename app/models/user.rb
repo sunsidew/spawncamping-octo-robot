@@ -1,10 +1,14 @@
 class User < ActiveRecord::Base
 	has_many :links
 	has_many :posts
+	has_many :notifications
+
+	def notify(post)
+		notifications.build(post_id: post.id, flag: 1).save		
+	end
 
 	def write_post(post_params, board)
 		params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text], type: post_params[:type], board_id: board.id}
-		puts params.inspect
 		posts.build(params)
 	end
 

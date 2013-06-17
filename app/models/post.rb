@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
+	self.inheritance_column = nil
+	
 	belongs_to :user
 	belongs_to :board
-
-	self.inheritance_column = nil
+	has_many :notifications
 end

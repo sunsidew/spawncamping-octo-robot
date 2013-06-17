@@ -1,6 +1,8 @@
 Arbos::Application.routes.draw do
 
 
+  get "notification/create"
+  get "notification/show"
   resources :boards do
     member do
       post "post/create"

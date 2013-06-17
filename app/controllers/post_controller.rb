@@ -14,8 +14,11 @@ class PostController < ApplicationController
       @post.update_attributes(params)
     else
     	@post = current_user.write_post(post_params, @board)
-      puts @post.inspect
     	@post.save
+    end
+
+    @board.links.each do |link|
+      link.user.notify(@post)
     end
 
     respond_to do |format|

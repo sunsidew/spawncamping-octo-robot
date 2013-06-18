@@ -67,10 +67,18 @@ class BoardsController < ApplicationController
 
   def add_member
     @user = User.find(params[:user_id])
-    @board.add_member(@user, 10) unless @board.has_member? (@user)
 
-    respond_to do |format|
-      format.json { render json: @user }
+    unless @board.has_member? (@user)
+      @board.add_member(@user, 10)
+
+      respond_to do |format|
+        format.json { render json: @user }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { error: '이미 있어요' }, status: 422 }
+      end
+
     end
   end
 

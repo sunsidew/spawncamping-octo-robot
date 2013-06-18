@@ -36,21 +36,38 @@
         	var user_list = new Array();	
         	for(var i = 0; i < data.length; i++)
         	{
-        		map[data[i].name] = data[i].id;
-        		user_list[i] = data[i].name;
+        		map[data[i].id.toString()] = data[i];
+        		user_list[i] = data[i].id.toString();
         	}
           process(user_list);
       	});
       },
 
       updater: function(obj) {
-      	$.post("<%= add_member_board_path(@board) %>", { 'user_id': map[obj] })
+      	$.post("<%= add_member_board_path(@board) %>", { 'user_id': obj })
       		.done(function(data) {
       			$("#member_pictures").append('<img alt="Photo" class="img-rounded", src='+data.picture+' width="40px"/>');
       		})
       		.fail(function(data) {
       		})
       		.always(function() {});
+	    },
+
+	    matcher: function(item) {
+	    	return true;
+	    },
+
+	    highlighter: function(item) {
+	    	var data = map[item];
+	    	var result = ""
+	                 + "<div class='typeahead_wrapper'>"
+	                 + "	<img class='typeahead_photo' src='" + data.picture + "' />"
+	                 + "	<div class='typeahead_labels'>"
+	                 + "		<div class='typeahead_primary'>" + data.name + "</div>"
+	                 + "		<div class='typeahead_secondary'></div>"
+	                 + "	</div>"
+	                 + "</div>";
+	      return result;
 	    }
     });
   </script>

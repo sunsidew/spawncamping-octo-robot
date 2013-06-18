@@ -39,7 +39,7 @@
     };
 
     var openStickies = function openStickies() {
-
+      
       initStickies && initStickies();
 
       <% @board.posts.each do |post| %>
@@ -89,22 +89,20 @@
 
       if (confirm("정말 삭제 할라고?"))
       {
-        var jqxhr = $.post("<%= post_destroy_board_path(@board) %>", { 'post_id': id })
-        .done(function() {})
-        .fail(function() {})
-        .always(function() { 
-          $("#" + id).fadeOut(200, function () { 
-            $(this).remove(); 
-          }); 
-        });
+        $.post("<%= post_destroy_board_path(@board) %>", { 'post_id': id })
+          .done(function() {})
+          .fail(function() {})
+          .always(function() { 
+            $("#" + id).fadeOut(200, function () { 
+              $(this).remove(); 
+            }); 
+          });
       }
     };
 
     var saveSticky = function saveSticky() {
-      console.log(this);
-      var that = $(this);
-      var sticky = (that.hasClass("sticky-status") || that.hasClass("sticky-content")) ? that.parents('div.sticky'): that;
 
+      var sticky = $(this);
       var obj = {
         id  : sticky.attr("id"),
         top : sticky.css("top"),
@@ -120,7 +118,6 @@
     };
 
     var markUnsaved = function markUnsaved() {
-      console.log(this);
       $(this).find(".sticky-status").text("수정 중");
     };
 

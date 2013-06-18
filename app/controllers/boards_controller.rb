@@ -1,6 +1,6 @@
 class BoardsController < ApplicationController
   before_action :login_check
-  before_action :set_board, only: [:show, :edit, :update, :destroy]
+  before_action :set_board, only: [:show, :edit, :update, :destroy, :add_member]
 
   # GET /boards
   # GET /boards.json
@@ -63,6 +63,12 @@ class BoardsController < ApplicationController
       format.html { redirect_to boards_url }
       format.json { head :no_content }
     end
+  end
+
+  def add_member
+    @user = User.find(params[:user_id])
+    @board.add_member(@user, 10) unless @board.has_member? (@user)
+    render nothing: true
   end
 
   private

@@ -13,16 +13,28 @@
 
 	<div class="span2">
 		<div class="row-fluid">
-			<input type="text" class="span12" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;,&quot;Arizona&quot;,&quot;Arkansas&quot;,&quot;California&quot;,&quot;Colorado&quot;,&quot;Connecticut&quot;,&quot;Delaware&quot;,&quot;Florida&quot;,&quot;Georgia&quot;,&quot;Hawaii&quot;,&quot;Idaho&quot;,&quot;Illinois&quot;,&quot;Indiana&quot;,&quot;Iowa&quot;,&quot;Kansas&quot;,&quot;Kentucky&quot;,&quot;Louisiana&quot;,&quot;Maine&quot;,&quot;Maryland&quot;,&quot;Massachusetts&quot;,&quot;Michigan&quot;,&quot;Minnesota&quot;,&quot;Mississippi&quot;,&quot;Missouri&quot;,&quot;Montana&quot;,&quot;Nebraska&quot;,&quot;Nevada&quot;,&quot;New Hampshire&quot;,&quot;New Jersey&quot;,&quot;New Mexico&quot;,&quot;New York&quot;,&quot;North Dakota&quot;,&quot;North Carolina&quot;,&quot;Ohio&quot;,&quot;Oklahoma&quot;,&quot;Oregon&quot;,&quot;Pennsylvania&quot;,&quot;Rhode Island&quot;,&quot;South Carolina&quot;,&quot;South Dakota&quot;,&quot;Tennessee&quot;,&quot;Texas&quot;,&quot;Utah&quot;,&quot;Vermont&quot;,&quot;Virginia&quot;,&quot;Washington&quot;,&quot;West Virginia&quot;,&quot;Wisconsin&quot;,&quot;Wyoming&quot;]" placeholder="데모">
 			<input id="user_search" class="typeahead span12" type="text" data-provide="typeahead" placeholder="멤버 초대하기">
+
 			<script type="text/javascript" charset="utf-8">
+				var map = {};
+
 	      $('input#user_search').typeahead({
+
 	        source: function(query, process) {
-	        	console.log(query);
 	          $.post("<%= user_search_board_path(@board) %>", { 'query': query }, function(data) {
-	            process(data);
+	          	var user_list = new Array();	
+	          	for(var i = 0; i < data.length; i++)
+	          	{
+	          		map[data[i].name] = data[i].id;
+	          		user_list[i] = data[i].name;
+	          	}
+	            process(user_list);
           	});
-	        }
+	        },
+
+	        updater: function(obj) {
+	        	$.post("<%= add_member_board_path(@board) %>", { 'user_id': map[obj] });
+			    }
 	      });
       </script>
 		</div>

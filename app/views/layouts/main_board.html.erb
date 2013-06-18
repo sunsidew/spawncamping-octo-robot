@@ -26,13 +26,13 @@
       $('#board').append($("<div />", { 
         text : "Y", 
         class : "add-sticky",
-        click : function () { createSticky({ id: +new Date(), top: "40px", left: "40px", text: "yellow", type: "yellow_sticky" }); }
+        click : function () { createSticky({ id: +new Date(), top: "40px", left: "40px", text: "", type: "yellow_sticky" }); }
       }));
 
       $('#board').append($("<div />", { 
         text : "B", 
         class : "add-sticky",
-        click : function () { createSticky({ id: +new Date(), top: "40px", left: "40px", text: "blue", type: "blue_sticky"}); }
+        click : function () { createSticky({ id: +new Date(), top: "40px", left: "40px", text: "", type: "blue_sticky"}); }
       }));
 
       initStickies = null;
@@ -43,7 +43,7 @@
       initStickies && initStickies();
 
       <% @board.posts.each do |post| %>
-        createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story.html_safe %>', type: '<%= post.type %>'})
+        createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story.html_safe %>', type: '<%= post.type %>'});
       <% end %>
     };
 

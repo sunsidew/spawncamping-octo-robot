@@ -9,6 +9,7 @@ Arbos::Application.routes.draw do
       post "post/destroy"
       post "user/search"
       post "add_member"
+      post "remove_member"
     end
   end
   root 'boards#index'

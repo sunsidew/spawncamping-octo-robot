@@ -33,7 +33,9 @@
 	        },
 
 	        updater: function(obj) {
-	        	$.post("<%= add_member_board_path(@board) %>", { 'user_id': map[obj] });
+	        	$.post("<%= add_member_board_path(@board) %>", { 'user_id': map[obj] }, function(data) {
+	        		console.log(data.name);
+	        	});
 			    }
 	      });
       </script>

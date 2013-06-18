@@ -6,6 +6,12 @@ class Board < ActiveRecord::Base
 		links.build(user_id: user.id, privilege: privilege).save
 	end
 
+	def remove_member (user)
+		links.each do |link|
+			link.destroy if link.user = user
+		end
+	end
+
 	def has_member? (user)
 		links.any? do |link|
 			link.user == user

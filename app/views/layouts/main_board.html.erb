@@ -32,8 +32,23 @@
         text : "B", 
         class : "add-sticky",
         click : function () { createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "blue_sticky"}); }
-      }));
+      }))
+       .append($("<form>", {class : "form-search"})
+        
+        .append($("<input />", {
+          type : "text",
+          placeholder : "동영상 임베드 코드 입력해주세요",
+          class : "input-large search-query",
+          id : "mv_embedcode"
+        }))
 
+        .append($("<button />", {
+          type : "button",
+          text : "M",
+          class : "btn btn-success",
+          click : function () { createSticky({ id: +new Date(), top: "200px", left: "100px", text: mv_embedcode.value, type: "mv_sticky"}); }
+        }))
+      );
       initStickies = null;
     };
 

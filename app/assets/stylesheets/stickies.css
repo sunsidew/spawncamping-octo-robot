@@ -20,6 +20,22 @@
 .add-sticky:hover {
 	background: #474747;
 }
+.add-sticky-mv {
+	margin: 5px;
+	cursor: default;
+	font-size:200%;
+	background:#000;
+	color:#fff;
+	border:2px solid #fff;
+	border-radius:40px;
+	-webkit-border-radius:40px;
+	-moz-border-radius:40px;
+	text-align:center;
+	line-height:40px;
+	width:40px;
+	height:40px;
+	float:left;
+}
 .yellow_sticky {
 	width:300px;
 	background:#fdfdbe;
@@ -34,6 +50,14 @@
 	-webkit-box-shadow:3px 3px 10px rgba(0,0,0,0.45);
 	-moz-box-shadow:3px 3px 10px rgba(0,0,0,0.45);
 }
+.mv_sticky {
+	width:300px;
+	background:#000000;
+	box-shadow:3px 3px 10px rgba(0,0,0,0.45);
+	-webkit-box-shadow:3px 3px 10px rgba(0,0,0,0.45);
+	-moz-box-shadow:3px 3px 10px rgba(0,0,0,0.45);
+}
+
 .sticky-content {
 	min-height:150px;
 	border-left:3px double rgba(238, 150, 122, .75);

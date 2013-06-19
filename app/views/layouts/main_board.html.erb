@@ -23,38 +23,65 @@
 
     var initStickies = function initStickies() {
 
-      $('#board').append($("<div />", { 
-        text : "Y", 
-        class : "add-sticky",
-        click : function () { createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "yellow_sticky" }); }
-      }))
-      .append($("<div />", { 
-        text : "B", 
-        class : "add-sticky",
-        click : function () { createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "blue_sticky"}); }
-      }))
-       .append($("<form>", {class : "form-search"})
-        
-        .append($("<input />", {
-          type : "text",
-          placeholder : "동영상 임베드 코드 입력해주세요",
-          class : "input-large search-query",
-          id : "mv_embedcode"
-        }))
+      $('#board').append($('<div />', {
+        text: "+",
+        class: "add-sticky",
+        click: function() { 
+          showStickies();  
+          $(this).remove();
+        }
+      }));
+    };
 
-        .append($("<button />", {
-          type : "button",
-          text : "M",
-          class : "btn btn-success",
-          click : function () { createSticky({ id: +new Date(), top: "200px", left: "100px", text: mv_embedcode.value, type: "mv_sticky"}); }
+    var showStickies = function showStickies() {
+
+      $('#board').append($("<div />", {
+        class: "sticky-box"
+      })
+        .append($("<div />", { 
+          text: "Y", 
+          class: "add-sticky",
+          click: function () { 
+            createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "yellow_sticky" }); 
+            initStickies();
+            $(this).parent().remove();
+          }
         }))
+        .append($("<div />", { 
+          text: "B", 
+          class: "add-sticky",
+          click: function () { 
+            createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "blue_sticky"}); 
+            initStickies();
+            $(this).parent().remove();
+          }
+        }))
+        .append($("<form>", {
+          class : "form-search"
+        })
+          .append($("<input />", {
+            type: "text",
+            placeholder: "동영상 임베드 코드 입력해주세요",
+            class: "input-large search-query",
+            id: "mv_embedcode"
+          }))
+          .append($("<button />", {
+            type: "button",
+            text: "M",
+            class: "btn btn-success",
+            click: function () { 
+              createSticky({ id: +new Date(), top: "200px", left: "100px", text: mv_embedcode.value, type: "mv_sticky"}); 
+              initStickies();
+              $(this).parent().parent().remove();
+            }
+          }))
+        )
       );
-      initStickies = null;
     };
 
     var openStickies = function openStickies() {
       
-      initStickies && initStickies();
+      initStickies();
 
       <% @board.posts.each do |post| %>
         createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story.html_safe %>', type: '<%= post.type %>'});

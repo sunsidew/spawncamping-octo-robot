@@ -26,12 +26,12 @@
       $('#board').append($("<div />", { 
         text : "Y", 
         class : "add-sticky",
-        click : function () { createSticky({ id: +new Date(), top: "40px", left: "40px", text: "", type: "yellow_sticky" }); }
+        click : function () { createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "yellow_sticky" }); }
       }))
       .append($("<div />", { 
         text : "B", 
         class : "add-sticky",
-        click : function () { createSticky({ id: +new Date(), top: "40px", left: "40px", text: "", type: "blue_sticky"}); }
+        click : function () { createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "blue_sticky"}); }
       }));
 
       initStickies = null;

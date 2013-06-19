@@ -15,6 +15,7 @@
 	line-height:40px;
 	width:40px;
 	height:40px;
+	float:left;
 }
 .add-sticky:hover {
 	background: #474747;

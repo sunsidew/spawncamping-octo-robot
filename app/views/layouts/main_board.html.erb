@@ -27,9 +27,8 @@
         text : "Y", 
         class : "add-sticky",
         click : function () { createSticky({ id: +new Date(), top: "40px", left: "40px", text: "", type: "yellow_sticky" }); }
-      }));
-
-      $('#board').append($("<div />", { 
+      }))
+      .append($("<div />", { 
         text : "B", 
         class : "add-sticky",
         click : function () { createSticky({ id: +new Date(), top: "40px", left: "40px", text: "", type: "blue_sticky"}); }

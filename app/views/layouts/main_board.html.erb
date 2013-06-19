@@ -81,6 +81,12 @@
         top: data.top,
         left: data.left
       })
+      .css({
+          "-webkit-transform":"rotate("+0+"deg)",
+          "-moz-transform":"rotate(30deg)",
+          "-o-transform":"rotate(30deg)",
+          "-ms-transform":"rotate(30deg)",
+        })
       .focusout(saveSticky)
       .appendTo($('#board'));
     };

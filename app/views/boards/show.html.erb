@@ -20,7 +20,7 @@
 			<p><strong>Members</strong></p>
 			<div id="member_pictures">
 				<% @board.links.each do |link| %>
-					<a href="#"><%= image_tag link.user.picture, class: 'img-rounded', width: '40px' %></a>
+					<a href="#"><%= image_tag link.user.picture, id: link.user.id, class: 'img-rounded user', width: '40px' %></a>
 				<% end %>
 			</div>
 		</div>
@@ -30,10 +30,10 @@
 
 		function user_click()
 		{
-			alert('??');
+			alert($(this).attr("id"));
 		}
 
-		$('.img-rounded').click(user_click);
+		$('.user').click(user_click);
 
 		var map = {};
 
@@ -60,7 +60,8 @@
       			})
       				.append($('<img />', {
       					alt: 'Photo',
-      					class: 'img-rounded',
+      					id: obj,
+      					class: 'img-rounded user',
       					src: data.picture,
       					width: '40px',
       					click: user_click

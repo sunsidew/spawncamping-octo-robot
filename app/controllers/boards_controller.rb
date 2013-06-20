@@ -17,7 +17,7 @@ class BoardsController < ApplicationController
 
   def show_main
     @posts = @board.main_posts
-    render layout: 'main_board'
+    render 'show', layout: 'main_board'
   end
 
   def show_temp

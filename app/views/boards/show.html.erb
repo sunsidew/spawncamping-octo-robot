@@ -28,12 +28,33 @@
 
 	<script type="text/javascript" charset="utf-8">
 
-		function user_click()
-		{
-			alert($(this).attr("id"));
-		}
+		<% @board.links.each do |link| %>
+			$('#'+"<%= link.user.id %>").popover({
+				placement: 'bottom',
+				trigger: 'click',
+				title: 'Popover on bottom',
+				content: 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.'
+			});
+		<% end %>
 
 		$('.user').click(user_click);
+		var last_user;
+
+		function user_click()
+		{
+			if (last_user == this)
+			{
+				last_user = 0
+				$(this).popover('hide');
+			}
+			else
+			{
+				$(last_user).popover('hide');
+
+				last_user = this;
+				$(this).popover('show');
+			}
+		}
 
 		var map = {};
 

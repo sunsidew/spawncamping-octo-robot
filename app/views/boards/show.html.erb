@@ -32,10 +32,23 @@
 			$('#'+"<%= link.user.id %>").popover({
 				placement: 'bottom',
 				trigger: 'click',
-				title: 'Popover on bottom',
-				content: 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.'
-			});
+				html: true,
+
+				title: $('<strong />', {
+					text: '<%= link.user.name %>'	
+				}),
+
+				content: $('<button />', {
+					class: 'btn btn-danger',
+					text: '추방',
+					click: function() {
+						console.log('zz');
+					}
+				})
+
+			})
 		<% end %>
+
 
 		$('.user').click(user_click);
 		var last_user;
@@ -44,7 +57,7 @@
 		{
 			if (last_user == this)
 			{
-				last_user = 0
+				last_user = null;
 				$(this).popover('hide');
 			}
 			else

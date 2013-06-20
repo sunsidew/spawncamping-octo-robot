@@ -5,6 +5,8 @@ Arbos::Application.routes.draw do
   
   resources :boards do
     member do
+      get 'main' => "boards#show_main"
+      get 'temp' => "boards#show_temp"
       post "post/create"
       post "post/destroy"
       post "user/search"

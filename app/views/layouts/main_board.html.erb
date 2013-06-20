@@ -83,7 +83,7 @@
       
       initStickies();
 
-      <% @main_posts.each do |post| %>
+      <% @posts.each do |post| %>
         createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story.html_safe %>', type: '<%= post.type %>'});
       <% end %>
     };

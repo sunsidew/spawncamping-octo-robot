@@ -23,4 +23,22 @@ class Board < ActiveRecord::Base
 			_post.id == post.id 
 		end
 	end
+
+	def main_posts
+		result = []
+		posts.each do |post|
+			result << post if post.location == "main"
+		end
+
+		result
+	end
+
+	def temp_posts
+		result = []
+		posts.each do |post|
+			result << post if post.location == "temp"
+		end
+
+		result
+	end
 end

@@ -83,7 +83,7 @@
       
       initStickies();
 
-      <% @board.posts.each do |post| %>
+      <% @main_posts.each do |post| %>
         createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story.html_safe %>', type: '<%= post.type %>'});
       <% end %>
     };
@@ -155,7 +155,8 @@
         top : sticky.css("top"),
         left: sticky.css("left"),
         text: sticky.children(".sticky-content").html(),
-        type: sticky.attr("class").split(' ')[0] 
+        type: sticky.attr("class").split(' ')[0],
+        location: 'main' 
       };  
       
       $.post("<%= post_create_board_path(@board) %>", { 'post': obj }, function(data) {

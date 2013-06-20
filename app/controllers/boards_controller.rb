@@ -1,6 +1,6 @@
 class BoardsController < ApplicationController
   before_action :login_check
-  before_action :set_board, only: [:show, :edit, :update, :destroy, :add_member, :remove_member]
+  before_action :set_board, only: [:show, :edit, :update, :destroy, :add_member, :remove_member, :show_main, :show_temp]
 
   # GET /boards
   # GET /boards.json

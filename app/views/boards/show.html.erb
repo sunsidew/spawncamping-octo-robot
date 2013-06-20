@@ -20,13 +20,21 @@
 			<p><strong>Members</strong></p>
 			<div id="member_pictures">
 				<% @board.links.each do |link| %>
-					<%= image_tag link.user.picture, class: 'img-rounded', width: '40px' %>
+					<a href="#"><%= image_tag link.user.picture, class: 'img-rounded', width: '40px' %></a>
 				<% end %>
 			</div>
 		</div>
 	</div>
 
 	<script type="text/javascript" charset="utf-8">
+
+		function user_click()
+		{
+			alert('??');
+		}
+
+		$('.img-rounded').click(user_click);
+
 		var map = {};
 
     $('input#user_search').typeahead({
@@ -46,10 +54,20 @@
       updater: function(obj) {
       	$.post("<%= add_member_board_path(@board) %>", { 'user_id': obj })
       		.done(function(data) {
-      			$("#member_pictures").append('<img alt="Photo" class="img-rounded", src='+data.picture+' width="40px"/>');
+      			$("#member_pictures")
+      			.append($('<a />', {
+      				href: '#'
+      			})
+      				.append($('<img />', {
+      					alt: 'Photo',
+      					class: 'img-rounded',
+      					src: data.picture,
+      					width: '40px',
+      					click: user_click
+      				}))
+      			);
       		})
-      		.fail(function(data) {
-      		})
+      		.fail(function(data) {})
       		.always(function() {});
 	    },
 
@@ -70,6 +88,7 @@
 	      return result;
 	    }
     });
+
   </script>
 </div>
 

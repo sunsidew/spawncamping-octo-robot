@@ -1,7 +1,7 @@
 
 <div class="row-fluid">
 	<h3 style="margin-top: 0px;">
-		<i class="icon-group"></i> <%= @board.name %>
+		<i class="icon-group"></i> <%= @board.name %> (임시보관함)
 		<a href="#board_edit" role="button" class="btn" data-toggle="modal"><i class="icon-edit"></i></a>
 	</h3>
 	<%= render 'layouts/notices' %>
@@ -34,7 +34,7 @@
 		<% @board.links.each do |link| %>
 			$('#'+"<%= link.user.id %>").popover({
 				placement: 'bottom',
-				trigger: 'click',
+				trigger: 'manual',
 				html: true,
 
 				title: $('<strong />', {
@@ -45,7 +45,14 @@
 					class: 'btn btn-danger',
 					text: '추방',
 					click: function() {
-						console.log('zz');
+						var id = $(this).parents('a').children('img').attr("id")
+						$.post('<%= remove_member_board_path(@board) %>', { user_id: id })
+							.done(function() {
+								user_popover();
+								$('#'+id).remove();
+							})
+							.fail(function() {})
+							.always(function() {});
 					}
 				})
 
@@ -53,10 +60,10 @@
 		<% end %>
 
 
-		$('.user').click(user_click);
+		$('.user').click(user_popover);
 		var last_user;
 
-		function user_click()
+		function user_popover()
 		{
 			if (last_user == this)
 			{
@@ -101,7 +108,7 @@
       					class: 'img-rounded user',
       					src: data.picture,
       					width: '40px',
-      					click: user_click
+      					click: user_popover
       				}))
       			);
       		})

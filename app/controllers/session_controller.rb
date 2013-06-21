@@ -1,4 +1,6 @@
 class SessionController < ApplicationController
+  skip_before_filter :login_check
+
   def new
     redirect_to root_path, flash: { warning: '이미 로그인되어 있습니다' } if current_user
   end

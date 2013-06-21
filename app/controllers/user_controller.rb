@@ -1,5 +1,4 @@
 class UserController < ApplicationController
-	before_action :login_check
   def search
   	@users = User.where("name like ?", params[:query]+"%")
 

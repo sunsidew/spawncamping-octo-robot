@@ -8,7 +8,7 @@ class Board < ActiveRecord::Base
 
 	def remove_member (user)
 		links.each do |link|
-			link.destroy if link.user = user
+			link.destroy if link.user == user
 		end
 	end
 

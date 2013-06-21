@@ -1,5 +1,4 @@
 class BoardsController < ApplicationController
-  before_action :login_check
   before_action :set_board, only: [:show, :edit, :update, :destroy, :add_member, :remove_member, :show_main, :show_temp]
 
   # GET /boards
@@ -94,7 +93,7 @@ class BoardsController < ApplicationController
 
   def remove_member
     @user = User.find(params[:user_id])
-    @board.remove_member(@user) unless @board.has_member? (@user)
+    @board.remove_member(@user) if @board.has_member? (@user)
 
     respond_to do |format|
       format.json { render json: @user }

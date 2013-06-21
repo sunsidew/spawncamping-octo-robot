@@ -1,6 +1,5 @@
 class PostController < ApplicationController
   skip_before_action :verify_authenticity_token 
-	before_action :login_check
 	before_action :set_board
 
   def create

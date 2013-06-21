@@ -41,4 +41,12 @@ class Board < ActiveRecord::Base
 
 		result
 	end
+
+	def is_owner? (user)
+		links.each do |link|
+			return link.privilege == 10 if link.user == user
+		end
+
+		false
+	end
 end

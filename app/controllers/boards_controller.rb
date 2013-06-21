@@ -78,7 +78,7 @@ class BoardsController < ApplicationController
     @user = User.find(params[:user_id])
 
     unless @board.has_member? (@user)
-      @board.add_member(@user, 10)
+      @board.add_member(@user, 5)
 
       respond_to do |format|
         format.json { render json: @user }
@@ -93,11 +93,15 @@ class BoardsController < ApplicationController
 
   def remove_member
     @user = User.find(params[:user_id])
-    @board.remove_member(@user) if @board.has_member? (@user)
 
-    respond_to do |format|
-      format.json { render json: @user }
+    if @board.is_owner? (@user)
+      return render json: @user, status: 422
+    else @board.has_member? (@user)
+      @board.remove_member(@user)
+      return render json: @user
     end
+
+    return render json: @user, status: 422
   end
 
   private

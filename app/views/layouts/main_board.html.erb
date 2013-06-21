@@ -137,13 +137,13 @@
       if (confirm("정말 삭제 할라고?"))
       {
         $.post("<%= post_destroy_board_path(@board) %>", { 'post_id': id })
-          .done(function() {})
-          .fail(function() {})
-          .always(function() { 
+          .done(function() {
             $("#" + id).fadeOut(200, function () { 
               $(this).remove(); 
             }); 
-          });
+          })
+          .fail(function() {})
+          .always(function() {});
       }
     };
 

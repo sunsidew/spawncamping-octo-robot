@@ -28,10 +28,16 @@ class PostController < ApplicationController
   def destroy
     @post = Post.find(params[:post_id])
     unless @board.has_post? (@post)
-      render nothing: true
+      render status: 422
       return
     end
-    @post.destroy
+
+    if @post.user == current_user or @board.is_owner? (current_user)
+      @post.destroy
+    else
+      render status: 422
+      return 
+    end
   end
 
   private

@@ -6,11 +6,17 @@ class PostController < ApplicationController
     @post = Post.where(id: post_params[:id]).first
     if @post
       unless @board.has_post? (@post)
-        render nothing: true
+        render status: 422
         return
       end
-      params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text], type: post_params[:type], location: post_params[:location]}
-      @post.update_attributes(params)
+
+      if @post.user == current_user or @board.is_owner? (current_user)
+        params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text], type: post_params[:type], location: post_params[:location]}
+        @post.update_attributes(params)
+      else
+        render status: 422
+        return
+      end
     else
     	@post = current_user.write_post(post_params, @board)
     	@post.save

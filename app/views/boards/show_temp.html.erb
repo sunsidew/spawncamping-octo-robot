@@ -1,9 +1,9 @@
 
 <div class="row-fluid">
-	<div class="span10">
+	<div id="left-side" class="span10">
 		<div class="row-fluid">
 
-			<div class="span6">
+			<div class="span4">
 				<h3 style="margin-top: 0px;">
 					<i class="icon-group"></i> <%= @board.name %> (임시보관함)
 					<a href="#board_edit" role="button" class="btn" data-toggle="modal"><i class="icon-edit"></i></a>
@@ -12,6 +12,10 @@
 
 			<div class="span4">
 				<%= render 'layouts/notices' %>
+			</div>
+			
+			<div class="span2">
+				<button id="board_resizer" class="btn">확대/축소</button>
 			</div>
 
 			<div class="span2">
@@ -25,7 +29,7 @@
 	</div>
 
 
-	<div class="span2">
+	<div id="right-side" class="span2">
 		<div class="row-fluid">
 			<input id="user_search" class="typeahead span12" type="text" data-provide="typeahead" placeholder="멤버 초대하기">
 		</div>
@@ -45,11 +49,25 @@
 
 	<script type="text/javascript" charset="utf-8">
 
-		var last_user;
+		var element;
+		$('#board_resizer').click(function() {
 
+			if ($('#right-side').length)
+			{
+				element = $('#right-side').detach();
+				$('#left-side').attr("class", "span12");
+			}
+			else
+			{
+				$('#left-side').attr('class', 'span10');
+				$('#left-side').parent().append(element);
+			}
+		});
+
+
+		var last_user;
 		function user_popover()
 		{
-			console.log('aa');
 			if (last_user == this)
 			{
 				last_user = null;
@@ -192,4 +210,3 @@
 	  </div>
 	<% end %>
 </div>
-

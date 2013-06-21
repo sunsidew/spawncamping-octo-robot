@@ -15,7 +15,7 @@
 			</div>
 
 			<div class="span2">
-				<button id="board_resizer" class="btn pull-right">확대/축소</button>
+				<button id="board_resizer" class="btn pull-right"><i class='icon-double-angle-right'></i></button>
 			</div>
 		</div>
 
@@ -57,11 +57,13 @@
 			{
 				element = $('#right-side').detach();
 				$('#left-side').attr("class", "span12");
+				$(this).html("<i class='icon-double-angle-left'></i>");
 			}
 			else
 			{
 				$('#left-side').attr('class', 'span10');
 				$('#left-side').parent().append(element);
+				$(this).html("<i class='icon-double-angle-right'></i>");
 			}
 		});
 

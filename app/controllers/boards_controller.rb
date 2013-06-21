@@ -16,11 +16,13 @@ class BoardsController < ApplicationController
 
   def show_main
     @posts = @board.main_posts
+    @location = "main"
     render 'show', layout: 'main_board'
   end
 
   def show_temp
     @posts = @board.temp_posts
+    @location = "temp"
     render layout: 'main_board'
   end
 

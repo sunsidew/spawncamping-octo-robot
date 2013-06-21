@@ -19,7 +19,7 @@
 			<input id="user_search" class="typeahead span12" type="text" data-provide="typeahead" placeholder="멤버 초대하기">
 		</div>
 
-		<div class="row-fluid">	
+		<div class="row-fluid">
 			<p><strong>Members</strong></p>
 			<div id="member_pictures">
 				<% @board.links.each do |link| %>
@@ -31,39 +31,11 @@
 
 	<script type="text/javascript" charset="utf-8">
 
-		<% @board.links.each do |link| %>
-			$('#'+"<%= link.user.id %>").popover({
-				placement: 'bottom',
-				trigger: 'manual',
-				html: true,
-
-				title: $('<strong />', {
-					text: '<%= link.user.name %>'	
-				}),
-
-				content: $('<div />', {
-					class: 'btn btn-danger',
-					text: '추방222',
-					click: function() {
-						var id = $(this).parents('a').children('img').attr("id")
-						$.post('<%= remove_member_board_path(@board) %>', { user_id: id })
-							.done(function() {
-								user_popover();
-								$('#'+id).remove();
-							})
-							.fail(function() {})
-							.always(function() {});
-					}
-				})
-			})
-		<% end %>
-
-
-		$('.user').click(user_popover);
 		var last_user;
 
 		function user_popover()
 		{
+			console.log('aa');
 			if (last_user == this)
 			{
 				last_user = null;
@@ -77,6 +49,42 @@
 				$(this).popover('show');
 			}
 		}
+
+		function set_popover_options(id, name)
+		{
+			$('#'+id).popover({
+				placement: 'bottom',
+				trigger: 'manual',
+				html: true,
+
+				title: $('<strong />', {
+					text: name
+				}),
+
+				content: $('<div />', {
+					class: 'btn btn-danger',
+					text: '추방',
+					click: function() {
+						var id = $(this).parents('a').children('img').attr("id")
+						$.post('<%= remove_member_board_path(@board) %>', { user_id: id })
+							.done(function() {
+								user_popover();
+								$('#'+id).remove();
+							})
+							.fail(function() {})
+							.always(function() {});
+					}
+				})
+			})
+
+			$('#'+id).click(user_popover);
+		}
+
+		<% @board.links.each do |link| %>
+			set_popover_options("<%= link.user.id %>", "<%= link.user.name %>");
+		<% end %>
+
+
 
 		var map = {};
 
@@ -106,10 +114,12 @@
       					id: obj,
       					class: 'img-rounded user',
       					src: data.picture,
-      					width: '40px',
-      					click: user_popover
+      					width: '40px'
       				}))
-      			);
+      			)
+
+      			set_popover_options(data.id, data.name);
+      			   			
       		})
       		.fail(function(data) {})
       		.always(function() {});
@@ -132,6 +142,8 @@
 	      return result;
 	    }
     });
+
+
 
   </script>
 </div>

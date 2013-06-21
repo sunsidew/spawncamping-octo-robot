@@ -31,14 +31,34 @@
 
 	<script type="text/javascript" charset="utf-8">
 
-		<% @board.links.each do |link| %>
-			$('#'+"<%= link.user.id %>").popover({
+		var last_user;
+
+		function user_popover()
+		{
+			console.log('aa');
+			if (last_user == this)
+			{
+				last_user = null;
+				$(this).popover('hide');
+			}
+			else
+			{
+				$(last_user).popover('hide');
+
+				last_user = this;
+				$(this).popover('show');
+			}
+		}
+
+		function set_popover_options(id, name)
+		{
+			$('#'+id).popover({
 				placement: 'bottom',
 				trigger: 'manual',
 				html: true,
 
 				title: $('<strong />', {
-					text: '<%= link.user.name %>'	
+					text: name
 				}),
 
 				content: $('<div />', {
@@ -56,27 +76,15 @@
 					}
 				})
 			})
+
+			$('#'+id).click(user_popover);
+		}
+
+		<% @board.links.each do |link| %>
+			set_popover_options("<%= link.user.id %>", "<%= link.user.name %>");
 		<% end %>
 
 
-		$('.user').click(user_popover);
-		var last_user;
-
-		function user_popover()
-		{
-			if (last_user == this)
-			{
-				last_user = null;
-				$(this).popover('hide');
-			}
-			else
-			{
-				$(last_user).popover('hide');
-
-				last_user = this;
-				$(this).popover('show');
-			}
-		}
 
 		var map = {};
 
@@ -106,10 +114,12 @@
       					id: obj,
       					class: 'img-rounded user',
       					src: data.picture,
-      					width: '40px',
-      					click: user_popover
+      					width: '40px'
       				}))
-      			);			
+      			)
+
+      			set_popover_options(data.id, data.name);
+      			   			
       		})
       		.fail(function(data) {})
       		.always(function() {});
@@ -132,6 +142,8 @@
 	      return result;
 	    }
     });
+
+
 
   </script>
 </div>

@@ -11,6 +11,7 @@ class BoardsController < ApplicationController
   # GET /boards/1.json
   def show
     @posts = @board.main_posts
+    @location = "main"
     render layout: 'main_board'
   end
 

@@ -31,6 +31,14 @@
           $(this).remove();
         }
       }));
+
+      $('#hole').droppable({
+        tolerance: 'touch',
+        drop: function(event, ui) {
+          moveSticky(ui.draggable.attr("id"));
+        }
+      })
+
     };
 
     var showStickies = function showStickies() {
@@ -89,15 +97,12 @@
     };
 
     var moveSticky = function moveSticky(id) {
-      if (confirm("이동시키겠습니까?"))
-      {
-        $.post('<%= post_move_location_board_path(@board) %>', { post_id: id })
-          .done(function() {
-            $('#'+id).remove();
-          })
-          .fail(function() {})
-          .always(function() {});
-      }
+      $.post('<%= post_move_location_board_path(@board) %>', { post_id: id })
+        .done(function() {
+          $('#'+id).remove();
+        })
+        .fail(function() {})
+        .always(function() {});
     }
 
     var createSticky = function createSticky(data) {

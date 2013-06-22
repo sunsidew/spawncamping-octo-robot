@@ -11,7 +11,7 @@ class PostController < ApplicationController
       end
 
       if @post.user == current_user or @board.is_owner? (current_user)
-        params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text], type: post_params[:type], location: post_params[:location]}
+        params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text], type: post_params[:type]}
         @post.update_attributes(params)
       else
         render status: 422

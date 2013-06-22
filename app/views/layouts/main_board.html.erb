@@ -57,7 +57,7 @@
           text: "Y", 
           class: "add-sticky",
           click: function () { 
-            createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "yellow_sticky" }); 
+            createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "yellow_sticky", width: "300px", height: "200px"}); 
             initStickies();
             $(this).parent().remove();
           }
@@ -66,7 +66,7 @@
           text: "B", 
           class: "add-sticky",
           click: function () { 
-            createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "blue_sticky"}); 
+            createSticky({ id: +new Date(), top: "200px", left: "100px", text: "", type: "blue_sticky", width: "300px", height: "200px"}); 
             initStickies();
             $(this).parent().remove();
           }
@@ -85,7 +85,7 @@
             text: "M",
             class: "btn btn-success",
             click: function () { 
-              createSticky({ id: +new Date(), top: "200px", left: "100px", text: mv_embedcode.value, type: "mv_sticky"}); 
+              createSticky({ id: +new Date(), top: "200px", left: "100px", text: mv_embedcode.value, type: "mv_sticky", width: "300px", height: "200px"}); 
               initStickies();
               $(this).parent().parent().remove();
             }
@@ -99,7 +99,7 @@
       initStickies();
 
       <% @posts.each do |post| %>
-        createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story.html_safe %>', type: '<%= post.type %>'});
+        createSticky({id: '<%= post.id %>', top: '<%= post.top.to_s+"px" %>', left: '<%= post.left.to_s+"px" %>', text: '<%= post.story.html_safe %>', type: '<%= post.type %>', width: '<%= post.width.to_s+"px" %>', height: '<%= post.height.to_s+"px" %>'});
       <% end %>
     };
 
@@ -113,7 +113,6 @@
     }
 
     var createSticky = function createSticky(data) {
-
       $("<div />", { 
         class: data.type,
         id: data.id,
@@ -150,7 +149,9 @@
       .css({
         position: "absolute",
         top: data.top,
-        left: data.left
+        left: data.left,
+        width: data.width,
+        height: data.height
       })
       .css({
           "-webkit-transform":"rotate("+0+"deg)",
@@ -184,11 +185,13 @@
         id  : sticky.attr("id"),
         top : sticky.css("top"),
         left: sticky.css("left"),
+        width: sticky.css("width"),
+        height: sticky.css("height"),
         text: sticky.children(".sticky-content").html(),
         type: sticky.attr("class").split(' ')[0],
         location: '<%= @location %>' 
-      };  
-      
+      };
+      console.log("w,h:",obj.width,obj.height);
       $.post("<%= post_create_board_path(@board) %>", { 'post': obj }, function(data) {
         sticky.find(".sticky-status").text("저장완료");
         sticky.attr("id", data);
@@ -196,10 +199,10 @@
     };
 
     var dragposition = function dragposition(event, ui) {
-        console.log($.global_var.boardwidth);
         var top_limited = ui.position.top;
         var left_limited = ui.position.left;
-        console.log(ui.position.top,ui.position.left);
+        $(this).find("1").width("400px");
+
         if (ui.position.top > $.global_var.boardheight+$.global_var.boardtop-192) {
             top_limited = $.global_var.boardheight+$.global_var.boardtop-192;
         }

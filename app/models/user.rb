@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 	end
 
 	def write_post(post_params, board)
-		params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text], type: post_params[:type], location: post_params[:location], board_id: board.id}
+		params = {top: post_params[:top].to_i, left: post_params[:left].to_i, story: post_params[:text], type: post_params[:type], location: post_params[:location], width: post_params[:width].to_i, height: post_params[:height].to_i, board_id: board.id}
 		posts.build(params)
 	end
 

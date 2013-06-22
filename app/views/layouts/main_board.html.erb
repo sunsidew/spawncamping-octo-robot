@@ -89,7 +89,7 @@
     };
 
     var moveSticky = function moveSticky(id) {
-      if (confirm("임시 보관함으로 이동시키겠습니까?"))
+      if (confirm("이동시키겠습니까?"))
       {
         $.post('<%= post_move_location_board_path(@board) %>', { post_id: id })
           .done(function() {
@@ -115,7 +115,7 @@
         }))
         .append($("<span />", {
           class: "temp-storage",
-          text: "임시 저장",
+          text: "이동",
           click: function () { moveSticky($(this).parents("."+data.type).attr("id")); }
         }))
         .append($("<span />", { 

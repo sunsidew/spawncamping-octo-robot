@@ -9,6 +9,7 @@ Arbos::Application.routes.draw do
       get 'temp' => "boards#show_temp"
       post "post/create"
       post "post/destroy"
+      post 'post/move_location'
       post "user/search"
       post "add_member"
       post "remove_member"

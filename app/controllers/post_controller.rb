@@ -46,6 +46,20 @@ class PostController < ApplicationController
     end
   end
 
+  def move_location
+    puts params.inspect
+    @post = Post.where(id: params[:post_id]).first
+    if @post
+      if @post.user == current_user or @board.is_owner? (current_user)
+        @post.location = (@post.location == "main" ? "temp" : "main")
+        @post.save
+        render nothing: true
+      end
+    else
+      render nothing: true, status: 422
+    end
+  end
+
   private
 
   def set_board

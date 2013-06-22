@@ -76,6 +76,17 @@
 	color:#ccc;
 	padding:5px;
 }
+.temp-storage {
+	background:#474747;
+	float:right;
+	cursor:default;
+	color:#ececec;
+	padding:1px 5px;
+	border-radius:20px;
+	-webkit-border-radius:20px;
+	-moz-border-radius:20px;	
+}
+
 .close-sticky {
 	background:#474747;
 	float:right;

@@ -21,6 +21,13 @@
 
   var STICKIES = function () {
 
+    $.global_var = {
+            boardtop: 112,
+            boardleft: 20,
+            boardheight: 600,
+            boardwidth: 1011
+        };
+
     var initStickies = function initStickies() {
 
       $('#board').append($('<div />', {
@@ -132,6 +139,7 @@
       .draggable({
         handle: ".sticky-header",
         start: markUnsaved,
+        drag: dragposition,
         stop: saveSticky
       })
       .css({
@@ -181,6 +189,27 @@
         sticky.attr("id", data);
       });
     };
+
+    var dragposition = function dragposition(event, ui) {
+        console.log($.global_var.boardwidth);
+        var top_limited = ui.position.top;
+        var left_limited = ui.position.left;
+        console.log(ui.position.top,ui.position.left);
+        if (ui.position.top > $.global_var.boardheight+$.global_var.boardtop-192) {
+            top_limited = $.global_var.boardheight+$.global_var.boardtop-192;
+        }
+        if (ui.position.top < $.global_var.boardtop) {
+            top_limited = $.global_var.boardtop;
+        }
+        if (ui.position.left > $.global_var.boardwidth+$.global_var.boardleft-300) {
+            left_limited = $.global_var.boardwidth+$.global_var.boardleft-300;
+        }
+        if (ui.position.left < $.global_var.boardleft) {
+            left_limited = $.global_var.boardleft;
+        }
+        ui.position.top = top_limited;
+        ui.position.left = left_limited;
+    }
 
     var markUnsaved = function markUnsaved() {
       $(this).find(".sticky-status").text("수정 중");

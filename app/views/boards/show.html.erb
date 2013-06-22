@@ -56,12 +56,14 @@
 			{
 				element = $('#right-side').detach();
 				$('#left-side').attr("class", "span12");
+				$.global_var.boardwidth = 1219;
 				$(this).html("<i class='icon-double-angle-left'></i>");
 			}
 			else
 			{
 				$('#left-side').attr('class', 'span10');
 				$('#left-side').parent().append(element);
+				$.global_var.boardwidth = 1011;
 				$(this).html("<i class='icon-double-angle-right'></i>");
 			}
 		});

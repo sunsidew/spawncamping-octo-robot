@@ -1,0 +1,23 @@
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>uid</th>
+			<th>이름</th>
+			<th>가입경로</th>
+			<th>가입일</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= user.id %></td>
+				<td><%= user.uid %></td>
+				<td><%= user.name %></td>
+				<td><%= user.provider %></td>
+				<td><%= user.created_at %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

@@ -1,6 +1,7 @@
 Arbos::Application.routes.draw do
 
 
+  get 'admin' => "admin#index"
   get "notification/show"
   
   resources :boards do

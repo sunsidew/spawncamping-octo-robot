@@ -59,7 +59,6 @@
 }
 
 .sticky-content {
-	min-height:150px;
 	border-left:3px double rgba(238, 150, 122, .75);
 	margin-left:30px;
 	padding:5px;

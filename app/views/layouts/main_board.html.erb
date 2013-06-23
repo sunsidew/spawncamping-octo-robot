@@ -118,6 +118,7 @@
         id: data.id,
         keydown: markUnsaved
       })
+
       .prepend($("<div />", {
         class: "sticky-header"
       })
@@ -135,17 +136,13 @@
           click: function () { deleteSticky($(this).parents("."+data.type).attr("id")); }
         }))
       )
+      
       .append($("<div />", { 
         html: data.text, 
         contentEditable: "true", 
         class: "sticky-content"
-      }))
-      .draggable({
-        handle: ".sticky-header",
-        start: markUnsaved,
-        drag: dragposition,
-        stop: saveSticky
-      })
+      }).css('height',(parseInt(data.height)-42)+'px'))
+
       .css({
         position: "absolute",
         top: data.top,
@@ -153,14 +150,32 @@
         width: data.width,
         height: data.height
       })
+
+      .draggable({
+        handle: ".sticky-header",
+        start: markUnsaved,
+        drag: dragposition,
+        stop: saveSticky
+      })
+      
+      .resizable({
+        resize: resizingpost,
+        minWidth: 165,
+        minHeight: 60,
+        start: markUnsaved,
+        stop: saveSticky
+      })
+      
       .css({
           "-webkit-transform":"rotate("+0+"deg)",
           "-moz-transform":"rotate(30deg)",
           "-o-transform":"rotate(30deg)",
           "-ms-transform":"rotate(30deg)",
         })
+
       .focusout(saveSticky)
       .appendTo($('#board'));
+      console.log(data.height);
     };
 
     var deleteSticky = function deleteSticky(id) {
@@ -191,7 +206,7 @@
         type: sticky.attr("class").split(' ')[0],
         location: '<%= @location %>' 
       };
-      console.log("w,h:",obj.width,obj.height);
+
       $.post("<%= post_create_board_path(@board) %>", { 'post': obj }, function(data) {
         sticky.find(".sticky-status").text("저장완료");
         sticky.attr("id", data);
@@ -201,22 +216,54 @@
     var dragposition = function dragposition(event, ui) {
         var top_limited = ui.position.top;
         var left_limited = ui.position.left;
-        $(this).find("1").width("400px");
-
-        if (ui.position.top > $.global_var.boardheight+$.global_var.boardtop-192) {
-            top_limited = $.global_var.boardheight+$.global_var.boardtop-192;
+        var width_now = parseInt($(this).css("width"));
+        var height_now = parseInt($(this).css("height"));
+        
+        if (ui.position.top > ($.global_var.boardheight+$.global_var.boardtop)-height_now) {
+            top_limited = ($.global_var.boardheight+$.global_var.boardtop)-height_now;
+            console.log("top over!");
         }
         if (ui.position.top < $.global_var.boardtop) {
             top_limited = $.global_var.boardtop;
         }
-        if (ui.position.left > $.global_var.boardwidth+$.global_var.boardleft-300) {
-            left_limited = $.global_var.boardwidth+$.global_var.boardleft-300;
+        if (ui.position.left > ($.global_var.boardwidth+$.global_var.boardleft)-width_now) {
+            left_limited = ($.global_var.boardwidth+$.global_var.boardleft)-width_now;
+            console.log("left over!");
         }
         if (ui.position.left < $.global_var.boardleft) {
             left_limited = $.global_var.boardleft;
         }
         ui.position.top = top_limited;
         ui.position.left = left_limited;
+
+        $(this).css({
+            top : ui.position.top + "px",
+            left : ui.position.left + "px"
+        });
+    }
+
+    var resizingpost =  function resizingpost(event, ui) {
+        var width_limited = ui.size.width;
+        var height_limited = ui.size.height;
+
+        console.log(ui.position.top, ui.position.left);
+
+        if (ui.size.width > $.global_var.boardwidth+$.global_var.boardleft-ui.position.left) {
+            width_limited = $.global_var.boardwidth+$.global_var.boardleft-ui.position.left;
+        }
+        if (ui.size.height > $.global_var.boardheight+$.global_var.boardtop-ui.position.top) {
+            height_limited = $.global_var.boardheight+$.global_var.boardtop-ui.position.top;
+        }
+
+        ui.size.width = width_limited;
+        ui.size.height = height_limited;
+        
+        $(this).css({
+            width : ui.size.width + "px",
+            height : ui.size.height + "px"
+        });
+
+        $('.sticky-content').css('height',(ui.size.height-42)+'px');
     }
 
     var markUnsaved = function markUnsaved() {

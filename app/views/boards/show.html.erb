@@ -51,6 +51,21 @@
 	<script type="text/javascript" charset="utf-8">
 
 		var element;
+
+		function side_clear()
+		{
+			var clear_left;
+			 <% @posts.each do |post| %>
+		        if(<%= post.left %> > ($.global_var.boardwidth+$.global_var.boardleft)-<%= post.width %>)
+		        {
+		            clear_left = (($.global_var.boardwidth+$.global_var.boardleft)-<%= post.width %>);
+				}
+				else clear_left = <%= post.left %>;
+				console.log(<%= post.id %>,clear_left);
+		        $('#left-side').children('.row-fluid').children("#board").children('div[id=<%= post.id %>]').css('left', (clear_left + 'px'));
+      		<% end %>
+		}
+
 		$('#board_resizer').click(function() {
 			if ($('#right-side').length)
 			{
@@ -65,6 +80,7 @@
 				$('#left-side').parent().append(element);
 				$.global_var.boardwidth = 1011;
 				$(this).html("<i class='icon-double-angle-right'></i>");
+				side_clear();
 			}
 		});
 

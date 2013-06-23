@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Board - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/board.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-add_member">#add_member</a>
+    
+    <li><a href="#method-i-has_member-3F">#has_member?</a>
+    
+    <li><a href="#method-i-has_post-3F">#has_post?</a>
+    
+    <li><a href="#method-i-is_owner-3F">#is_owner?</a>
+    
+    <li><a href="#method-i-main_posts">#main_posts</a>
+    
+    <li><a href="#method-i-remove_member">#remove_member</a>
+    
+    <li><a href="#method-i-temp_posts">#temp_posts</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./AdminController.html">AdminController</a>
+  
+    <li><a href="./AdminHelper.html">AdminHelper</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Board.html">Board</a>
+  
+    <li><a href="./BoardsController.html">BoardsController</a>
+  
+    <li><a href="./BoardsHelper.html">BoardsHelper</a>
+  
+    <li><a href="./Link.html">Link</a>
+  
+    <li><a href="./Notification.html">Notification</a>
+  
+    <li><a href="./NotificationController.html">NotificationController</a>
+  
+    <li><a href="./NotificationHelper.html">NotificationHelper</a>
+  
+    <li><a href="./Post.html">Post</a>
+  
+    <li><a href="./PostController.html">PostController</a>
+  
+    <li><a href="./PostHelper.html">PostHelper</a>
+  
+    <li><a href="./SessionController.html">SessionController</a>
+  
+    <li><a href="./SessionHelper.html">SessionHelper</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserController.html">UserController</a>
+  
+    <li><a href="./UserHelper.html">UserHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Board</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-add_member" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_member</span><span
+            class="method-args">(user, privilege)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_member-source">
+            <pre><span class="ruby-comment"># File app/models/board.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_member</span> (<span class="ruby-identifier">user</span>, <span class="ruby-identifier">privilege</span>)
+        <span class="ruby-identifier">links</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">privilege</span><span class="ruby-operator">:</span> <span class="ruby-identifier">privilege</span>).<span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_member-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_member-method -->
+
+    
+      <div id="method-i-has_member-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_member?</span><span
+            class="method-args">(user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="has_member-3F-source">
+            <pre><span class="ruby-comment"># File app/models/board.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_member?</span> (<span class="ruby-identifier">user</span>)
+        <span class="ruby-identifier">links</span>.<span class="ruby-identifier">any?</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">link</span>.<span class="ruby-identifier">user</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">user</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- has_member-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- has_member-3F-method -->
+
+    
+      <div id="method-i-has_post-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_post?</span><span
+            class="method-args">(post)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="has_post-3F-source">
+            <pre><span class="ruby-comment"># File app/models/board.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_post?</span> (<span class="ruby-identifier">post</span>)
+        <span class="ruby-identifier">posts</span>.<span class="ruby-identifier">any?</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">_post</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">_post</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">post</span>.<span class="ruby-identifier">id</span> 
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- has_post-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- has_post-3F-method -->
+
+    
+      <div id="method-i-is_owner-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_owner?</span><span
+            class="method-args">(user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="is_owner-3F-source">
+            <pre><span class="ruby-comment"># File app/models/board.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_owner?</span> (<span class="ruby-identifier">user</span>)
+        <span class="ruby-identifier">links</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">privilege</span> <span class="ruby-operator">==</span> <span class="ruby-value">10</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">user</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">user</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- is_owner-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- is_owner-3F-method -->
+
+    
+      <div id="method-i-main_posts" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">main_posts</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="main_posts-source">
+            <pre><span class="ruby-comment"># File app/models/board.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">main_posts</span>
+        <span class="ruby-identifier">result</span> = []
+        <span class="ruby-identifier">posts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">post</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">post</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">post</span>.<span class="ruby-identifier">location</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;main&quot;</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-identifier">result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- main_posts-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- main_posts-method -->
+
+    
+      <div id="method-i-remove_member" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">remove_member</span><span
+            class="method-args">(user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="remove_member-source">
+            <pre><span class="ruby-comment"># File app/models/board.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remove_member</span> (<span class="ruby-identifier">user</span>)
+        <span class="ruby-identifier">links</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">link</span>.<span class="ruby-identifier">destroy</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">user</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">user</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- remove_member-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- remove_member-method -->
+
+    
+      <div id="method-i-temp_posts" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">temp_posts</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="temp_posts-source">
+            <pre><span class="ruby-comment"># File app/models/board.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">temp_posts</span>
+        <span class="ruby-identifier">result</span> = []
+        <span class="ruby-identifier">posts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">post</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">post</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">post</span>.<span class="ruby-identifier">location</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;temp&quot;</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-identifier">result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- temp_posts-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- temp_posts-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

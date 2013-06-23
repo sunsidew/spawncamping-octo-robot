@@ -175,7 +175,6 @@
 
       .focusout(saveSticky)
       .appendTo($('#board'));
-      console.log(data.height);
     };
 
     var deleteSticky = function deleteSticky(id) {
@@ -218,17 +217,15 @@
         var left_limited = ui.position.left;
         var width_now = parseInt($(this).css("width"));
         var height_now = parseInt($(this).css("height"));
-        
+    
         if (ui.position.top > ($.global_var.boardheight+$.global_var.boardtop)-height_now) {
             top_limited = ($.global_var.boardheight+$.global_var.boardtop)-height_now;
-            console.log("top over!");
         }
         if (ui.position.top < $.global_var.boardtop) {
             top_limited = $.global_var.boardtop;
         }
         if (ui.position.left > ($.global_var.boardwidth+$.global_var.boardleft)-width_now) {
             left_limited = ($.global_var.boardwidth+$.global_var.boardleft)-width_now;
-            console.log("left over!");
         }
         if (ui.position.left < $.global_var.boardleft) {
             left_limited = $.global_var.boardleft;
@@ -245,8 +242,6 @@
     var resizingpost =  function resizingpost(event, ui) {
         var width_limited = ui.size.width;
         var height_limited = ui.size.height;
-
-        console.log(ui.position.top, ui.position.left);
 
         if (ui.size.width > $.global_var.boardwidth+$.global_var.boardleft-ui.position.left) {
             width_limited = $.global_var.boardwidth+$.global_var.boardleft-ui.position.left;
